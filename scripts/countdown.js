@@ -1,23 +1,29 @@
-const endOfHackathon = new Date("Oct 31, 2019 23:59:59").getTime();
-const second = 1000;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
+{/* <script> */ }
+var dest = new Date("oct 31, 2021 00:00:00:00").getTime();
+// var dest = new Date(new Date().getTime() + 10000).getTime();
 
-function updateTime() {
-  let dateNow = new Date().getTime();
-  let timeLeft = endOfHackathon - dateNow;
+const f = function () {
+  var currentdate = new Date().getTime();
+  var left = dest - currentdate;
+  console.log(left);
+  if (left < 0) {
+    clearInterval(x);
+    document.getElementById("he1").innerHTML = "EXPIRED";
+    document.getElementById("days").innerHTML = 0;
+    document.getElementById("hours").innerHTML = 00;
+    document.getElementById("minutes").innerHTML = 00;
+    document.getElementById("seconds").innerHTML = 00;
+    return;
+  }
 
-  document.getElementById("days").innerText = Math.floor(timeLeft / day);
-  document.getElementById("hours").innerText = Math.floor(
-    (timeLeft % day) / hour
-  );
-  document.getElementById("minutes").innerText = Math.floor(
-    (timeLeft % hour) / minute
-  );
-  document.getElementById("seconds").innerText = Math.floor(
-    (timeLeft % minute) / second
-  );
+  var days = Math.floor(left / (1000 * 60 * 60 * 24));
+  var h = Math.floor((left % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var m = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds2 = Math.floor((left % (1000 * 60)) / 1000);
+
+  document.getElementById("days").innerHTML = days;
+  document.getElementById("hours").innerHTML = h;
+  document.getElementById("minutes").innerHTML = m;
+  document.getElementById("seconds").innerHTML = seconds2;
 }
-updateTime();
-setInterval(updateTime, second / 4);
+var x = setInterval(f, 1000);
